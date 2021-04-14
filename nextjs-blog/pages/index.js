@@ -3,6 +3,7 @@ import Layout, { siteTitle } from "./components/layout";
 import utilStyles from "./styles/utils.module.css";
 import Link from "next/link";
 import { getSortedPostsData } from "./lib/posts.js";
+import Date from './components/date'
 
 export async function getStaticProps() {
   const allPostsData = getSortedPostsData();
@@ -24,10 +25,7 @@ export default function Home({ allPostsData }) {
       <section className={utilStyles.headingMd}>
         <p>Hi! i'm Valentina, junior Full-stack web developer!</p>
         <h1 className="title">
-          Read{" "}
-          <Link href="/posts/first-post">
-            <a>all my Posts</a>
-          </Link>
+          
         </h1>
         <p>
           (This is a sample website - you’ll be building a site like this on{" "}
@@ -38,11 +36,15 @@ export default function Home({ allPostsData }) {
           <ul className={utilStyles.list}>
             {allPostsData.map(({ id, date, title }) => (
               <li className={utilStyles.listItem} key={id}>
-                {title}
+                <Link href={`/posts/${id}`}>
+                <a>{title}</a>
+                </Link>
                 <br />
                 {id}
                 <br />
-                {date}
+                <small className={utilStyles.lightText}>
+                <Date dateString={date} />
+                </small>
               </li>
             ))}
           </ul>
